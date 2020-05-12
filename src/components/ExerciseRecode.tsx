@@ -25,10 +25,11 @@ const ExerciseRecode: React.FunctionComponent<ExerciseRecodeProps> = ({
       <ul>
         {list.isEmpty() && <li>내용이 없습니다.</li>}
         {!list.isEmpty() &&
-          list.map((data) => (
+          list.map(({ name , conuter } , id) => (
             <li>
-              <p>{data.name}</p>
-              <p>{data.conuter}</p>
+              <div><input type="text" name="name" value={name} onChange={e => onModify(id, { conuter, name : e.target.value } ) } /></div>
+              <div><input type="text" name="conuter" value={conuter} onChange={e => onModify(id, { name, conuter: parseInt(e.target.value)  } ) } /></div>
+              <i onClick={e => onDelete(id)}>X</i>
             </li>
           ))}
       </ul>
