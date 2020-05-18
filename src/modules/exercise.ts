@@ -6,7 +6,8 @@ const DELETE_EXERCISE = "exercise/DELETE" as const;
 
 export interface Exercise {
   name: string;
-  conuter: number;
+  raps: number;
+  weight: number;
 }
 
 export const createExercise = (data: Exercise) => ({
