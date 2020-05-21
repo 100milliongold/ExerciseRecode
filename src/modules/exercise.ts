@@ -10,6 +10,11 @@ export interface Exercise {
   weight: number;
 }
 
+export interface DailyExercise{
+  list : List<Exercise>
+  date : Date
+}
+
 export const createExercise = (data: Exercise) => ({
   type: CREATE_EXERCISE,
   data,
@@ -30,26 +35,43 @@ type ExerciseAction =
   | ReturnType<typeof deleteExercise>;
 
 type ExerciseState = {
-  list: List<Exercise>;
+  list: List<DailyExercise>;
+  daily: DailyExercise;
 };
 
 const initialState: ExerciseState = {
   list: List([]),
+  daily: {
+    date : new Date(),
+    list: List([]),
+  }
 };
 
 function exercise(state: ExerciseState = initialState, action: ExerciseAction) {
   switch (action.type) {
     case CREATE_EXERCISE:
       return {
-        list: state.list.push(action.data),
+        ...state,
+        daily : {
+          ...state.daily,
+          list: state.daily.list.push(action.data)
+        }
       };
     case MODIFY_EXERCISE:
       return {
-        list: state.list.set(action.id, action.data),
+        ...state,
+        daily: {
+          ...state.daily,
+          list: state.daily.list.set(action.id, action.data),
+        }
       };
     case DELETE_EXERCISE:
       return {
-        list: state.list.delete(action.id),
+        ...state,
+        daily: {
+          ...state.daily,
+          list: state.daily.list.delete(action.id),
+        }
       };
     default:
       return state;

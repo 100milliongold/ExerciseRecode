@@ -10,7 +10,7 @@ import {
 import ExerciseRecode from "../components/ExerciseRecode";
 
 export default function ExerciseContainer() {
-  const list = useSelector((state: RootState) => state.exercise.list);
+  const list = useSelector((state: RootState) => state.exercise.daily.list);
   const dispatch = useDispatch();
 
   const onCreate = (data: Exercise) => {
